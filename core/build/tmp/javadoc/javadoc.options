@@ -1,0 +1,11 @@
+-classpath '/Users/jhons/Downloads/BE/audit-log/core/build/classes/java/main:/Users/jhons/Downloads/BE/audit-log/core/build/resources/main:/Users/jhons/Downloads/BE/audit-log/api/build/classes/java/main'
+-d '/Users/jhons/Downloads/BE/audit-log/core/build/docs/javadoc'
+-doctitle 'core 1.0.0 API'
+-notimestamp 
+-quiet 
+-windowtitle 'core 1.0.0 API'
+'/Users/jhons/Downloads/BE/audit-log/core/src/main/java/com/auditlog/core/Json.java'
+'/Users/jhons/Downloads/BE/audit-log/core/src/main/java/com/auditlog/core/CompositeAuditSink.java'
+'/Users/jhons/Downloads/BE/audit-log/core/src/main/java/com/auditlog/core/DefaultAuditLogger.java'
+'/Users/jhons/Downloads/BE/audit-log/core/src/main/java/com/auditlog/core/ElkHttpAuditSink.java'
+'/Users/jhons/Downloads/BE/audit-log/core/src/main/java/com/auditlog/core/FileAuditSink.java'

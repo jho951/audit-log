@@ -1,0 +1,41 @@
+allprojects {
+    group = "com.jho.audit"
+    version = "1.0.0"
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: "java-library"
+    apply plugin: "maven-publish"
+
+    java {
+        toolchain { languageVersion = JavaLanguageVersion.of(17) }
+        withSourcesJar()
+        withJavadocJar()
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+                pom {
+                    name = project.name
+                    description = "audit-log module"
+                }
+            }
+        }
+        repositories {
+            maven {
+                name = "GitHubPackages-audit-log"
+                url = uri("https://maven.pkg.github.com/jho951/audit-log")
+                credentials {
+                    username = (findProperty("gpr.user"))
+                    password = (findProperty("gpr.key"))
+                }
+            }
+        }
+    }
+}

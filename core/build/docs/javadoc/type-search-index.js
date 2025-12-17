@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.auditlog.core","l":"CompositeAuditSink"},{"p":"com.auditlog.core","l":"DefaultAuditLogger"},{"p":"com.auditlog.core","l":"ElkHttpAuditSink"},{"p":"com.auditlog.core","l":"FileAuditSink"}];updateSearchResults();

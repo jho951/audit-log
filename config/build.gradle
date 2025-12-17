@@ -1,0 +1,6 @@
+dependencies {
+    api project(":core")
+    compileOnly "org.springframework.boot:spring-boot-autoconfigure:3.4.0"
+    compileOnly "org.springframework.boot:spring-boot-configuration-processor:3.4.0"
+    compileOnly "org.springframework:spring-context:6.2.0"
+}
