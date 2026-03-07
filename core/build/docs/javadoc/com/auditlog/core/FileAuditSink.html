@@ -81,6 +81,7 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">FileAuditSink</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements com.auditlog.api.AuditSink</span></div>
+<div class="block">감사 이벤트를 로컬 파일에 JSON Line 형식으로 append하는 구현체입니다.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -112,7 +113,9 @@ implements com.auditlog.api.AuditSink</span></div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#append(com.auditlog.api.AuditEvent)" class="member-name-link">append</a><wbr>(com.auditlog.api.AuditEvent&nbsp;event)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">이벤트를 파일에 한 줄(JSON + 개행)로 기록합니다.</div>
+</div>
 </div>
 </div>
 </div>
@@ -139,6 +142,12 @@ implements com.auditlog.api.AuditSink</span></div>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">FileAuditSink</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/nio/file/Path.html" title="class or interface in java.nio.file" class="external-link">Path</a>&nbsp;filePath,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;serviceName,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;env)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>filePath</code> - 로그 파일 경로</dd>
+<dd><code>serviceName</code> - 서비스 이름(없으면 <code>unknown-service</code>)</dd>
+<dd><code>env</code> - 실행 환경(없으면 <code>local</code>)</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -153,9 +162,13 @@ implements com.auditlog.api.AuditSink</span></div>
 <section class="detail" id="append(com.auditlog.api.AuditEvent)">
 <h3>append</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">append</span><wbr><span class="parameters">(com.auditlog.api.AuditEvent&nbsp;event)</span></div>
+<div class="block">이벤트를 파일에 한 줄(JSON + 개행)로 기록합니다.
+ 기록 실패는 fail-open 정책에 따라 예외를 외부로 전파하지 않습니다.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code>append</code>&nbsp;in interface&nbsp;<code>com.auditlog.api.AuditSink</code></dd>
+<dt>Parameters:</dt>
+<dd><code>event</code> - 기록할 감사 이벤트</dd>
 </dl>
 </section>
 </li>

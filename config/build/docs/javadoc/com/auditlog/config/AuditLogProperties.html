@@ -77,6 +77,7 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="annotations">@ConfigurationProperties(prefix="auditlog")
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">AuditLogProperties</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block"><code>auditlog.*</code> 설정 값을 바인딩하는 프로퍼티 클래스입니다.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -181,84 +182,140 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="isEnabled()">
 <h3>isEnabled</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isEnabled</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>감사 로그 기능 활성화 여부</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="setEnabled(boolean)">
 <h3>setEnabled</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setEnabled</span><wbr><span class="parameters">(boolean&nbsp;enabled)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>enabled</code> - 감사 로그 기능 활성화 여부</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getServiceName()">
 <h3>getServiceName</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getServiceName</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>서비스 이름</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="setServiceName(java.lang.String)">
 <h3>setServiceName</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setServiceName</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;serviceName)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>serviceName</code> - 서비스 이름</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getEnv()">
 <h3>getEnv</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getEnv</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>실행 환경명</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="setEnv(java.lang.String)">
 <h3>setEnv</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setEnv</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;env)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>env</code> - 실행 환경명</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getFilePath()">
 <h3>getFilePath</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getFilePath</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>파일 sink 경로</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="setFilePath(java.lang.String)">
 <h3>setFilePath</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setFilePath</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;filePath)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>filePath</code> - 파일 sink 경로</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="isElkEnabled()">
 <h3>isElkEnabled</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isElkEnabled</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>ELK 전송 활성화 여부</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="setElkEnabled(boolean)">
 <h3>setElkEnabled</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setElkEnabled</span><wbr><span class="parameters">(boolean&nbsp;elkEnabled)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>elkEnabled</code> - ELK 전송 활성화 여부</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getElkEndpoint()">
 <h3>getElkEndpoint</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getElkEndpoint</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>ELK 엔드포인트 URL</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="setElkEndpoint(java.lang.String)">
 <h3>setElkEndpoint</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setElkEndpoint</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;elkEndpoint)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>elkEndpoint</code> - ELK 엔드포인트 URL</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getElkApiKey()">
 <h3>getElkApiKey</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">getElkApiKey</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>ELK API Key</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="setElkApiKey(java.lang.String)">
 <h3>setElkApiKey</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setElkApiKey</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;elkApiKey)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>elkApiKey</code> - ELK API Key</dd>
+</dl>
 </section>
 </li>
 </ul>

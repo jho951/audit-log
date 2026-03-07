@@ -82,6 +82,7 @@ loadScripts(document, 'script');</script>
                        matchIfMissing=true)
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">AuditLogAutoConfiguration</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">감사 로그 컴포넌트를 자동으로 등록하는 Spring Boot 자동 설정입니다.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -111,7 +112,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>com.auditlog.api.AuditLogger</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#auditLogger(com.auditlog.config.AuditLogProperties)" class="member-name-link">auditLogger</a><wbr>(<a href="AuditLogProperties.html" title="class in com.auditlog.config">AuditLogProperties</a>&nbsp;p)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">설정값에 따라 파일 sink 또는 파일+ELK 합성 sink를 구성한 <code>AuditLogger</code>를 생성합니다.</div>
+</div>
 </div>
 </div>
 </div>
@@ -148,6 +151,13 @@ loadScripts(document, 'script');</script>
 <h3>auditLogger</h3>
 <div class="member-signature"><span class="annotations">@Bean
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">com.auditlog.api.AuditLogger</span>&nbsp;<span class="element-name">auditLogger</span><wbr><span class="parameters">(<a href="AuditLogProperties.html" title="class in com.auditlog.config">AuditLogProperties</a>&nbsp;p)</span></div>
+<div class="block">설정값에 따라 파일 sink 또는 파일+ELK 합성 sink를 구성한 <code>AuditLogger</code>를 생성합니다.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>p</code> - 감사 로그 설정 프로퍼티</dd>
+<dt>Returns:</dt>
+<dd>애플리케이션에서 사용할 감사 로거</dd>
+</dl>
 </section>
 </li>
 </ul>

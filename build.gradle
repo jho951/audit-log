@@ -10,6 +10,7 @@ allprojects {
 subprojects {
     apply plugin: "java-library"
     apply plugin: "maven-publish"
+    apply plugin: "signing"
 
     java {
         toolchain { languageVersion = JavaLanguageVersion.of(17) }
@@ -24,19 +25,69 @@ subprojects {
                 pom {
                     name = project.name
                     artifactId = "audit-log-${project.name}"
+                    description = "Reusable audit logging modules for Java/Spring applications"
+                    url = "https://github.com/jho951/audit-log"
+
+                    licenses {
+                        license {
+                            name = "The Apache License, Version 2.0"
+                            url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id = "jho951"
+                            name = "jho951"
+                            email = "jho951@users.noreply.github.com"
+                        }
+                    }
+
+                    scm {
+                        connection = "scm:git:git://github.com/jho951/audit-log.git"
+                        developerConnection = "scm:git:ssh://github.com:jho951/audit-log.git"
+                        url = "https://github.com/jho951/audit-log"
+                    }
                 }
             }
         }
         repositories {
-            maven {
-                name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/jho951/audit-log")
-                credentials {
-                    username = findProperty("githubUsername")
-                    password = findProperty("githubToken")
+            def githubUsername = findProperty("githubUsername")
+            def githubToken = findProperty("githubToken")
+            if (githubUsername && githubToken) {
+                maven {
+                    name = "GitHubPackages"
+                    url = uri("https://maven.pkg.github.com/jho951/audit-log")
+                    credentials {
+                        username = githubUsername
+                        password = githubToken
+                    }
+                }
+            }
+
+            def ossrhUsername = findProperty("ossrhUsername")
+            def ossrhPassword = findProperty("ossrhPassword")
+            if (ossrhUsername && ossrhPassword) {
+                maven {
+                    name = version.toString().endsWith("SNAPSHOT") ? "OSSRHSnapshots" : "OSSRHStaging"
+                    url = uri(version.toString().endsWith("SNAPSHOT")
+                        ? "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+                        : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                    credentials {
+                        username = ossrhUsername
+                        password = ossrhPassword
+                    }
                 }
             }
         }
     }
-}
 
+    signing {
+        def signingKey = findProperty("signingKey")
+        def signingPassword = findProperty("signingPassword")
+        if (signingKey && signingPassword) {
+            useInMemoryPgpKeys(signingKey, signingPassword)
+            sign publishing.publications.mavenJava
+        }
+    }
+}

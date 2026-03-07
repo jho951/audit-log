@@ -56,48 +56,68 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/auditlog/api/AuditEvent.Builder.html#actorIp(java.lang.String)" class="member-name-link">actorIp(String)</a> - Method in class com.auditlog.api.<a href="com/auditlog/api/AuditEvent.Builder.html" title="class in com.auditlog.api">AuditEvent.Builder</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/auditlog/api/AuditSink.html#append(com.auditlog.api.AuditEvent)" class="member-name-link">append(AuditEvent)</a> - Method in interface com.auditlog.api.<a href="com/auditlog/api/AuditSink.html" title="interface in com.auditlog.api">AuditSink</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">단일 감사 이벤트를 저장소에 추가합니다.</div>
+</dd>
 <dt><a href="com/auditlog/api/AuditEvent.html" class="type-name-link" title="class in com.auditlog.api">AuditEvent</a> - Class in <a href="com/auditlog/api/package-summary.html">com.auditlog.api</a></dt>
 <dd>
-<div class="block">단일 Audit 이벤트를 표현하는 불변 객체.</div>
+<div class="block">단일 감사 이벤트를 표현하는 불변 객체입니다.</div>
 </dd>
 <dt><a href="com/auditlog/api/AuditEvent.Builder.html" class="type-name-link" title="class in com.auditlog.api">AuditEvent.Builder</a> - Class in <a href="com/auditlog/api/package-summary.html">com.auditlog.api</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"><a href="com/auditlog/api/AuditEvent.html" title="class in com.auditlog.api"><code>AuditEvent</code></a>를 구성하는 빌더입니다.</div>
+</dd>
 <dt><a href="com/auditlog/api/AuditEventType.html" class="type-name-link" title="enum class in com.auditlog.api">AuditEventType</a> - Enum Class in <a href="com/auditlog/api/package-summary.html">com.auditlog.api</a></dt>
 <dd>
 <div class="block">감사 이벤트 유형.</div>
 </dd>
 <dt><a href="com/auditlog/api/AuditLogger.html" class="type-name-link" title="interface in com.auditlog.api">AuditLogger</a> - Interface in <a href="com/auditlog/api/package-summary.html">com.auditlog.api</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">감사 이벤트를 기록하는 진입점 인터페이스입니다.</div>
+</dd>
 <dt><a href="com/auditlog/api/AuditSink.html" class="type-name-link" title="interface in com.auditlog.api">AuditSink</a> - Interface in <a href="com/auditlog/api/package-summary.html">com.auditlog.api</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">감사 이벤트를 실제 저장소(파일, HTTP 등)에 기록하는 대상 인터페이스입니다.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:B">B</h2>
 <dl class="index">
 <dt><a href="com/auditlog/api/AuditEvent.Builder.html#build()" class="member-name-link">build()</a> - Method in class com.auditlog.api.<a href="com/auditlog/api/AuditEvent.Builder.html" title="class in com.auditlog.api">AuditEvent.Builder</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/auditlog/api/AuditEvent.html#builder(com.auditlog.api.AuditEventType,java.lang.String)" class="member-name-link">builder(AuditEventType, String)</a> - Static method in class com.auditlog.api.<a href="com/auditlog/api/AuditEvent.html" title="class in com.auditlog.api">AuditEvent</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">이벤트 유형과 액션명을 기반으로 빌더를 생성합니다.</div>
+</dd>
 <dt><a href="com/auditlog/api/AuditEvent.Builder.html#%3Cinit%3E(com.auditlog.api.AuditEventType,java.lang.String)" class="member-name-link">Builder(AuditEventType, String)</a> - Constructor for class com.auditlog.api.<a href="com/auditlog/api/AuditEvent.Builder.html" title="class in com.auditlog.api">AuditEvent.Builder</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
 <dt><a href="com/auditlog/api/AuditSink.html#close()" class="member-name-link">close()</a> - Method in interface com.auditlog.api.<a href="com/auditlog/api/AuditSink.html" title="interface in com.auditlog.api">AuditSink</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">자원 정리가 필요한 구현체에서 재정의할 수 있습니다.</div>
+</dd>
 <dt><a href="com/auditlog/api/package-summary.html">com.auditlog.api</a> - package com.auditlog.api</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/auditlog/api/AuditEventType.html#CREATE" class="member-name-link">CREATE</a> - Enum constant in enum class com.auditlog.api.<a href="com/auditlog/api/AuditEventType.html" title="enum class in com.auditlog.api">AuditEventType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">생성 이벤트</div>
+</dd>
 <dt><a href="com/auditlog/api/AuditEventType.html#CUSTOM" class="member-name-link">CUSTOM</a> - Enum constant in enum class com.auditlog.api.<a href="com/auditlog/api/AuditEventType.html" title="enum class in com.auditlog.api">AuditEventType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">사용자 정의 이벤트</div>
+</dd>
 </dl>
 <h2 class="title" id="I:D">D</h2>
 <dl class="index">
 <dt><a href="com/auditlog/api/AuditEventType.html#DELETE" class="member-name-link">DELETE</a> - Enum constant in enum class com.auditlog.api.<a href="com/auditlog/api/AuditEventType.html" title="enum class in com.auditlog.api">AuditEventType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">삭제 이벤트</div>
+</dd>
 <dt><a href="com/auditlog/api/AuditEvent.Builder.html#detail(java.lang.String,java.lang.String)" class="member-name-link">detail(String, String)</a> - Method in class com.auditlog.api.<a href="com/auditlog/api/AuditEvent.Builder.html" title="class in com.auditlog.api">AuditEvent.Builder</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">부가 정보를 추가합니다. key 또는 value가 null이면 무시합니다.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
@@ -125,18 +145,28 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:L">L</h2>
 <dl class="index">
 <dt><a href="com/auditlog/api/AuditLogger.html#log(com.auditlog.api.AuditEvent)" class="member-name-link">log(AuditEvent)</a> - Method in interface com.auditlog.api.<a href="com/auditlog/api/AuditLogger.html" title="interface in com.auditlog.api">AuditLogger</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">이미 구성된 <a href="com/auditlog/api/AuditEvent.html" title="class in com.auditlog.api"><code>AuditEvent</code></a>를 기록합니다.</div>
+</dd>
 <dt><a href="com/auditlog/api/AuditLogger.html#log(com.auditlog.api.AuditEventType,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.util.Map)" class="member-name-link">log(AuditEventType, String, String, String, String, String, String, String, Map&lt;String, String&gt;)</a> - Method in interface com.auditlog.api.<a href="com/auditlog/api/AuditLogger.html" title="interface in com.auditlog.api">AuditLogger</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">개별 필드로 전달받은 값을 기반으로 <a href="com/auditlog/api/AuditEvent.html" title="class in com.auditlog.api"><code>AuditEvent</code></a>를 생성해 기록합니다.</div>
+</dd>
 <dt><a href="com/auditlog/api/AuditEventType.html#LOGIN" class="member-name-link">LOGIN</a> - Enum constant in enum class com.auditlog.api.<a href="com/auditlog/api/AuditEventType.html" title="enum class in com.auditlog.api">AuditEventType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">로그인 이벤트</div>
+</dd>
 <dt><a href="com/auditlog/api/AuditEventType.html#LOGOUT" class="member-name-link">LOGOUT</a> - Enum constant in enum class com.auditlog.api.<a href="com/auditlog/api/AuditEventType.html" title="enum class in com.auditlog.api">AuditEventType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">로그아웃 이벤트</div>
+</dd>
 </dl>
 <h2 class="title" id="I:R">R</h2>
 <dl class="index">
 <dt><a href="com/auditlog/api/AuditEventType.html#READ" class="member-name-link">READ</a> - Enum constant in enum class com.auditlog.api.<a href="com/auditlog/api/AuditEventType.html" title="enum class in com.auditlog.api">AuditEventType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">조회 이벤트</div>
+</dd>
 <dt><a href="com/auditlog/api/AuditEvent.Builder.html#resource(java.lang.String,java.lang.String)" class="member-name-link">resource(String, String)</a> - Method in class com.auditlog.api.<a href="com/auditlog/api/AuditEvent.Builder.html" title="class in com.auditlog.api">AuditEvent.Builder</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/auditlog/api/AuditEvent.Builder.html#result(java.lang.String)" class="member-name-link">result(String)</a> - Method in class com.auditlog.api.<a href="com/auditlog/api/AuditEvent.Builder.html" title="class in com.auditlog.api">AuditEvent.Builder</a></dt>
@@ -145,7 +175,9 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
 <dt><a href="com/auditlog/api/AuditEventType.html#SYSTEM" class="member-name-link">SYSTEM</a> - Enum constant in enum class com.auditlog.api.<a href="com/auditlog/api/AuditEventType.html" title="enum class in com.auditlog.api">AuditEventType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">시스템 내부 이벤트</div>
+</dd>
 </dl>
 <h2 class="title" id="I:T">T</h2>
 <dl class="index">
@@ -157,7 +189,9 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:U">U</h2>
 <dl class="index">
 <dt><a href="com/auditlog/api/AuditEventType.html#UPDATE" class="member-name-link">UPDATE</a> - Enum constant in enum class com.auditlog.api.<a href="com/auditlog/api/AuditEventType.html" title="enum class in com.auditlog.api">AuditEventType</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">수정 이벤트</div>
+</dd>
 </dl>
 <h2 class="title" id="I:V">V</h2>
 <dl class="index">

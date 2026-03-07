@@ -80,6 +80,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public static final class </span><span class="element-name type-name-label">AuditEvent.Builder</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block"><a href="AuditEvent.html" title="class in com.auditlog.api"><code>AuditEvent</code></a>를 구성하는 빌더입니다.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -120,7 +121,9 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AuditEvent.Builder.html" title="class in com.auditlog.api">AuditEvent.Builder</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#detail(java.lang.String,java.lang.String)" class="member-name-link">detail</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;key,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;value)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">부가 정보를 추가합니다. key 또는 value가 null이면 무시합니다.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="AuditEvent.Builder.html" title="class in com.auditlog.api">AuditEvent.Builder</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resource(java.lang.String,java.lang.String)" class="member-name-link">resource</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;resourceType,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;resourceId)</code></div>
@@ -156,6 +159,11 @@ loadScripts(document, 'script');</script>
 <h3>Builder</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Builder</span><wbr><span class="parameters">(<a href="AuditEventType.html" title="enum class in com.auditlog.api">AuditEventType</a>&nbsp;eventType,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;action)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>eventType</code> - 이벤트 유형</dd>
+<dd><code>action</code> - 액션명</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -170,18 +178,36 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="timestamp(java.time.Instant)">
 <h3>timestamp</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AuditEvent.Builder.html" title="class in com.auditlog.api">AuditEvent.Builder</a></span>&nbsp;<span class="element-name">timestamp</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/time/Instant.html" title="class or interface in java.time" class="external-link">Instant</a>&nbsp;timestamp)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>timestamp</code> - 이벤트 발생 시각</dd>
+<dt>Returns:</dt>
+<dd>현재 빌더</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="actorId(java.lang.String)">
 <h3>actorId</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AuditEvent.Builder.html" title="class in com.auditlog.api">AuditEvent.Builder</a></span>&nbsp;<span class="element-name">actorId</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;actorId)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>actorId</code> - 행위자 식별자</dd>
+<dt>Returns:</dt>
+<dd>현재 빌더</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="actorIp(java.lang.String)">
 <h3>actorIp</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AuditEvent.Builder.html" title="class in com.auditlog.api">AuditEvent.Builder</a></span>&nbsp;<span class="element-name">actorIp</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;actorIp)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>actorIp</code> - 행위자 IP</dd>
+<dt>Returns:</dt>
+<dd>현재 빌더</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -189,12 +215,25 @@ loadScripts(document, 'script');</script>
 <h3>resource</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AuditEvent.Builder.html" title="class in com.auditlog.api">AuditEvent.Builder</a></span>&nbsp;<span class="element-name">resource</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;resourceType,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;resourceId)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>resourceType</code> - 대상 리소스 유형</dd>
+<dd><code>resourceId</code> - 대상 리소스 식별자</dd>
+<dt>Returns:</dt>
+<dd>현재 빌더</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="result(java.lang.String)">
 <h3>result</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AuditEvent.Builder.html" title="class in com.auditlog.api">AuditEvent.Builder</a></span>&nbsp;<span class="element-name">result</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;result)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>result</code> - 처리 결과</dd>
+<dt>Returns:</dt>
+<dd>현재 빌더</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -202,18 +241,36 @@ loadScripts(document, 'script');</script>
 <h3>detail</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AuditEvent.Builder.html" title="class in com.auditlog.api">AuditEvent.Builder</a></span>&nbsp;<span class="element-name">detail</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;key,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;value)</span></div>
+<div class="block">부가 정보를 추가합니다. key 또는 value가 null이면 무시합니다.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>key</code> - 부가 정보 키</dd>
+<dd><code>value</code> - 부가 정보 값</dd>
+<dt>Returns:</dt>
+<dd>현재 빌더</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="traceId(java.lang.String)">
 <h3>traceId</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AuditEvent.Builder.html" title="class in com.auditlog.api">AuditEvent.Builder</a></span>&nbsp;<span class="element-name">traceId</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;traceId)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>traceId</code> - 분산 추적 ID</dd>
+<dt>Returns:</dt>
+<dd>현재 빌더</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="build()">
 <h3>build</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AuditEvent.html" title="class in com.auditlog.api">AuditEvent</a></span>&nbsp;<span class="element-name">build</span>()</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>생성된 불변 감사 이벤트</dd>
+</dl>
 </section>
 </li>
 </ul>

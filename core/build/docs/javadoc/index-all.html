@@ -52,48 +52,66 @@ loadScripts(document, 'script');</script>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
 <dt><a href="com/auditlog/core/CompositeAuditSink.html#append(com.auditlog.api.AuditEvent)" class="member-name-link">append(AuditEvent)</a> - Method in class com.auditlog.core.<a href="com/auditlog/core/CompositeAuditSink.html" title="class in com.auditlog.core">CompositeAuditSink</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">각 sink에 순차적으로 이벤트를 전달합니다.</div>
+</dd>
 <dt><a href="com/auditlog/core/ElkHttpAuditSink.html#append(com.auditlog.api.AuditEvent)" class="member-name-link">append(AuditEvent)</a> - Method in class com.auditlog.core.<a href="com/auditlog/core/ElkHttpAuditSink.html" title="class in com.auditlog.core">ElkHttpAuditSink</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">이벤트를 비동기 HTTP 요청으로 전송합니다.</div>
+</dd>
 <dt><a href="com/auditlog/core/FileAuditSink.html#append(com.auditlog.api.AuditEvent)" class="member-name-link">append(AuditEvent)</a> - Method in class com.auditlog.core.<a href="com/auditlog/core/FileAuditSink.html" title="class in com.auditlog.core">FileAuditSink</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">이벤트를 파일에 한 줄(JSON + 개행)로 기록합니다.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
 <dt><a href="com/auditlog/core/CompositeAuditSink.html#close()" class="member-name-link">close()</a> - Method in class com.auditlog.core.<a href="com/auditlog/core/CompositeAuditSink.html" title="class in com.auditlog.core">CompositeAuditSink</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">포함된 모든 sink를 순차적으로 종료합니다.</div>
+</dd>
 <dt><a href="com/auditlog/core/package-summary.html">com.auditlog.core</a> - package com.auditlog.core</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/auditlog/core/CompositeAuditSink.html" class="type-name-link" title="class in com.auditlog.core">CompositeAuditSink</a> - Class in <a href="com/auditlog/core/package-summary.html">com.auditlog.core</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">여러 <code>AuditSink</code>로 이벤트를 fan-out 전송하는 합성 sink입니다.</div>
+</dd>
 <dt><a href="com/auditlog/core/CompositeAuditSink.html#%3Cinit%3E(java.util.List)" class="member-name-link">CompositeAuditSink(List&lt;AuditSink&gt;)</a> - Constructor for class com.auditlog.core.<a href="com/auditlog/core/CompositeAuditSink.html" title="class in com.auditlog.core">CompositeAuditSink</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:D">D</h2>
 <dl class="index">
 <dt><a href="com/auditlog/core/DefaultAuditLogger.html" class="type-name-link" title="class in com.auditlog.core">DefaultAuditLogger</a> - Class in <a href="com/auditlog/core/package-summary.html">com.auditlog.core</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block"><code>AuditLogger</code>의 기본 구현체입니다.</div>
+</dd>
 <dt><a href="com/auditlog/core/DefaultAuditLogger.html#%3Cinit%3E(com.auditlog.api.AuditSink)" class="member-name-link">DefaultAuditLogger(AuditSink)</a> - Constructor for class com.auditlog.core.<a href="com/auditlog/core/DefaultAuditLogger.html" title="class in com.auditlog.core">DefaultAuditLogger</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:E">E</h2>
 <dl class="index">
 <dt><a href="com/auditlog/core/ElkHttpAuditSink.html" class="type-name-link" title="class in com.auditlog.core">ElkHttpAuditSink</a> - Class in <a href="com/auditlog/core/package-summary.html">com.auditlog.core</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">감사 이벤트를 HTTP로 전송하는 sink 구현체입니다.</div>
+</dd>
 <dt><a href="com/auditlog/core/ElkHttpAuditSink.html#%3Cinit%3E(java.net.URI,java.lang.String,java.lang.String,java.lang.String)" class="member-name-link">ElkHttpAuditSink(URI, String, String, String)</a> - Constructor for class com.auditlog.core.<a href="com/auditlog/core/ElkHttpAuditSink.html" title="class in com.auditlog.core">ElkHttpAuditSink</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:F">F</h2>
 <dl class="index">
 <dt><a href="com/auditlog/core/FileAuditSink.html" class="type-name-link" title="class in com.auditlog.core">FileAuditSink</a> - Class in <a href="com/auditlog/core/package-summary.html">com.auditlog.core</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">감사 이벤트를 로컬 파일에 JSON Line 형식으로 append하는 구현체입니다.</div>
+</dd>
 <dt><a href="com/auditlog/core/FileAuditSink.html#%3Cinit%3E(java.nio.file.Path,java.lang.String,java.lang.String)" class="member-name-link">FileAuditSink(Path, String, String)</a> - Constructor for class com.auditlog.core.<a href="com/auditlog/core/FileAuditSink.html" title="class in com.auditlog.core">FileAuditSink</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:L">L</h2>
 <dl class="index">
 <dt><a href="com/auditlog/core/DefaultAuditLogger.html#log(com.auditlog.api.AuditEvent)" class="member-name-link">log(AuditEvent)</a> - Method in class com.auditlog.core.<a href="com/auditlog/core/DefaultAuditLogger.html" title="class in com.auditlog.core">DefaultAuditLogger</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="block">이벤트 기록 요청을 sink로 전달합니다.</div>
+</dd>
 </dl>
 <a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:L">L</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
 </div>

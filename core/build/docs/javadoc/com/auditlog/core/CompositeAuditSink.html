@@ -81,6 +81,7 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">CompositeAuditSink</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements com.auditlog.api.AuditSink</span></div>
+<div class="block">여러 <code>AuditSink</code>로 이벤트를 fan-out 전송하는 합성 sink입니다.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -110,10 +111,14 @@ implements com.auditlog.api.AuditSink</span></div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#append(com.auditlog.api.AuditEvent)" class="member-name-link">append</a><wbr>(com.auditlog.api.AuditEvent&nbsp;event)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">각 sink에 순차적으로 이벤트를 전달합니다.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#close()" class="member-name-link">close</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">포함된 모든 sink를 순차적으로 종료합니다.</div>
+</div>
 </div>
 </div>
 </div>
@@ -135,6 +140,10 @@ implements com.auditlog.api.AuditSink</span></div>
 <section class="detail" id="&lt;init&gt;(java.util.List)">
 <h3>CompositeAuditSink</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">CompositeAuditSink</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;com.auditlog.api.AuditSink&gt;&nbsp;sinks)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>sinks</code> - fan-out 대상 sink 목록</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -149,9 +158,13 @@ implements com.auditlog.api.AuditSink</span></div>
 <section class="detail" id="append(com.auditlog.api.AuditEvent)">
 <h3>append</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">append</span><wbr><span class="parameters">(com.auditlog.api.AuditEvent&nbsp;event)</span></div>
+<div class="block">각 sink에 순차적으로 이벤트를 전달합니다.
+ 특정 sink 실패는 다른 sink 처리에 영향을 주지 않도록 예외를 흡수합니다.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code>append</code>&nbsp;in interface&nbsp;<code>com.auditlog.api.AuditSink</code></dd>
+<dt>Parameters:</dt>
+<dd><code>event</code> - 기록할 감사 이벤트</dd>
 </dl>
 </section>
 </li>
@@ -159,6 +172,7 @@ implements com.auditlog.api.AuditSink</span></div>
 <section class="detail" id="close()">
 <h3>close</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">close</span>()</div>
+<div class="block">포함된 모든 sink를 순차적으로 종료합니다.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code>close</code>&nbsp;in interface&nbsp;<code>com.auditlog.api.AuditSink</code></dd>

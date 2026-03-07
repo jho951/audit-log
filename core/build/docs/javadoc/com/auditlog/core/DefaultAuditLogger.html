@@ -81,6 +81,8 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">DefaultAuditLogger</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements com.auditlog.api.AuditLogger</span></div>
+<div class="block"><code>AuditLogger</code>의 기본 구현체입니다.
+ 전달받은 이벤트를 지정된 <code>AuditSink</code>로 위임합니다.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -110,7 +112,9 @@ implements com.auditlog.api.AuditLogger</span></div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#log(com.auditlog.api.AuditEvent)" class="member-name-link">log</a><wbr>(com.auditlog.api.AuditEvent&nbsp;event)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">이벤트 기록 요청을 sink로 전달합니다.</div>
+</div>
 </div>
 </div>
 </div>
@@ -135,6 +139,10 @@ implements com.auditlog.api.AuditLogger</span></div>
 <section class="detail" id="&lt;init&gt;(com.auditlog.api.AuditSink)">
 <h3>DefaultAuditLogger</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">DefaultAuditLogger</span><wbr><span class="parameters">(com.auditlog.api.AuditSink&nbsp;sink)</span></div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>sink</code> - 이벤트를 기록할 sink</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -149,9 +157,12 @@ implements com.auditlog.api.AuditLogger</span></div>
 <section class="detail" id="log(com.auditlog.api.AuditEvent)">
 <h3>log</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">log</span><wbr><span class="parameters">(com.auditlog.api.AuditEvent&nbsp;event)</span></div>
+<div class="block">이벤트 기록 요청을 sink로 전달합니다.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code>log</code>&nbsp;in interface&nbsp;<code>com.auditlog.api.AuditLogger</code></dd>
+<dt>Parameters:</dt>
+<dd><code>event</code> - 기록할 감사 이벤트</dd>
 </dl>
 </section>
 </li>
