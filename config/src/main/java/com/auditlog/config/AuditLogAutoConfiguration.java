@@ -2,16 +2,30 @@ package com.auditlog.config;
 
 import com.auditlog.api.AuditLogger;
 import com.auditlog.api.AuditSink;
-import com.auditlog.core.*;
-
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import com.auditlog.core.AsyncAuditSink;
+import com.auditlog.core.CompositeAuditSink;
+import com.auditlog.core.DefaultAuditLogger;
+import com.auditlog.core.ElkHttpAuditSink;
+import com.auditlog.core.FileAuditSink;
+import com.auditlog.spi.AuditContextResolver;
+import com.auditlog.spi.AuditMaskingPolicy;
 
 import java.net.URI;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * 감사 로그 컴포넌트를 자동으로 등록하는 Spring Boot 자동 설정입니다.
@@ -21,23 +35,69 @@ import java.util.ArrayList;
 @ConditionalOnProperty(prefix = "auditlog", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class AuditLogAutoConfiguration {
 
-	/**
-	 * 설정값에 따라 파일 sink 또는 파일+ELK 합성 sink를 구성한 {@link AuditLogger}를 생성합니다.
-	 *
-	 * @param p 감사 로그 설정 프로퍼티
-	 * @return 애플리케이션에서 사용할 감사 로거
-	 */
 	@Bean
-	public AuditLogger auditLogger(AuditLogProperties p) {
-		var sinks = new ArrayList<AuditSink>();
+	@ConditionalOnMissingBean
+	public AuditMaskingPolicy auditMaskingPolicy(AuditLogProperties properties) {
+		return new DefaultAuditMaskingPolicy(properties.getSensitiveKeys());
+	}
 
-		sinks.add(new FileAuditSink(Path.of(p.getFilePath()), p.getServiceName(), p.getEnv()));
+	@Bean(destroyMethod = "close")
+	@ConditionalOnMissingBean
+	public AuditSink auditSink(AuditLogProperties properties) {
+		List<AuditSink> sinks = new ArrayList<>();
+		sinks.add(new FileAuditSink(Path.of(properties.getFilePath()), properties.getServiceName(), properties.getEnv()));
 
-		if (p.isElkEnabled() && p.getElkEndpoint() != null && !p.getElkEndpoint().isBlank()) {
-			sinks.add(new ElkHttpAuditSink(URI.create(p.getElkEndpoint()), p.getServiceName(), p.getEnv(), p.getElkApiKey()));
+		if (properties.isElkEnabled() && properties.getElkEndpoint() != null && !properties.getElkEndpoint().isBlank()) {
+			sinks.add(new ElkHttpAuditSink(
+				URI.create(properties.getElkEndpoint()),
+				properties.getServiceName(),
+				properties.getEnv(),
+				properties.getElkApiKey()
+			));
 		}
 
 		AuditSink sink = sinks.size() == 1 ? sinks.get(0) : new CompositeAuditSink(sinks);
-		return new DefaultAuditLogger(sink);
+		if (!properties.isAsyncEnabled()) {
+			return sink;
+		}
+
+		ExecutorService executorService = new ThreadPoolExecutor(
+			properties.getAsyncThreadCount(),
+			properties.getAsyncThreadCount(),
+			60L,
+			TimeUnit.SECONDS,
+			new ArrayBlockingQueue<>(properties.getAsyncQueueCapacity()),
+			new ThreadPoolExecutor.DiscardPolicy()
+		);
+		return new AsyncAuditSink(sink, executorService);
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public AuditLogger auditLogger(
+		AuditSink auditSink,
+		ObjectProvider<AuditContextResolver> resolversProvider,
+		AuditMaskingPolicy maskingPolicy
+	) {
+		List<AuditContextResolver> resolvers = resolversProvider.orderedStream().toList();
+		return new DefaultAuditLogger(auditSink, resolvers, maskingPolicy);
+	}
+
+	@Configuration
+	@ConditionalOnClass(name = "jakarta.servlet.Filter")
+	@ConditionalOnProperty(prefix = "auditlog", name = "web-enabled", havingValue = "true", matchIfMissing = true)
+	static class WebAuditConfiguration {
+
+		@Bean
+		@ConditionalOnMissingBean
+		WebAuditContextFilter webAuditContextFilter() {
+			return new WebAuditContextFilter();
+		}
+
+		@Bean
+		@ConditionalOnMissingBean
+		AuditContextResolver webAuditContextResolver() {
+			return new WebAuditContextResolver();
+		}
 	}
 }

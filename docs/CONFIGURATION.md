@@ -1,47 +1,31 @@
-# 설정 가이드
+# 설정
 
-## 의존성
-
-Spring Boot 애플리케이션에서는 `config` 모듈을 의존하면 자동 설정이 활성화됩니다.
-
-```gradle
-dependencies {
-    implementation("io.github.jho951:audit-log-config:<version>")
-}
-```
-
-## 설정 속성
-
-`application.yml` 또는 `application.properties`에서 `auditlog.*`를 설정합니다.
-
-### 공통
-
-- `auditlog.enabled` (기본: `true`): 기능 활성화 여부
-- `auditlog.service-name` (기본: `unknown-service`): 서비스 이름
-- `auditlog.env` (기본: `local`): 실행 환경
-- `auditlog.file-path` (기본: `./logs/audit.log`): 파일 sink 경로
-
-### ELK/HTTP
-
-- `auditlog.elk-enabled` (기본: `false`): ELK sink 활성화
-- `auditlog.elk-endpoint`: 전송 대상 URL
-- `auditlog.elk-api-key`: API Key (선택)
-
-## 예시 (YAML)
+## 기본 속성
 
 ```yaml
 auditlog:
   enabled: true
   service-name: order-service
   env: prod
-  file-path: /var/log/app/audit.log
-  elk-enabled: true
-  elk-endpoint: https://elk.example.com/audit
-  elk-api-key: ${ELK_API_KEY}
+  file-path: ./logs/audit.log
+  elk-enabled: false
+  elk-endpoint: https://log.example.com/audit
+  elk-api-key: your-api-key
+  async-enabled: true
+  async-thread-count: 2
+  async-queue-capacity: 1000
+  web-enabled: true
+  sensitive-keys:
+    - password
+    - token
+    - authorization
+    - email
 ```
 
 ## 동작 규칙
 
-- `enabled=false`이면 `AuditLogger` 자동 구성 비활성화
-- `elk-enabled=true`이고 `elk-endpoint`가 유효하면 파일 + ELK 동시 전송
-- ELK 미설정 또는 비활성화 시 파일 sink만 사용
+- `enabled=false`면 starter 전체가 비활성화됩니다.
+- `web-enabled=true`면 서블릿 요청 메타데이터를 자동 수집합니다.
+- `elk-enabled=true`면 파일 sink와 함께 HTTP sink로 fan-out 합니다.
+- `async-enabled=true`면 최종 sink를 비동기 래퍼로 감쌉니다.
+- `sensitive-keys`는 `details` 키 이름에 포함되면 마스킹됩니다.

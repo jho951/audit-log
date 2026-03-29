@@ -1,5 +1,8 @@
 package com.auditlog.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -10,81 +13,49 @@ public class AuditLogProperties {
 	private boolean enabled = true;
 	private String serviceName = "unknown-service";
 	private String env = "local";
-
 	private String filePath = "./logs/audit.log";
-
-	// ELK
 	private boolean elkEnabled = false;
-	private String elkEndpoint; // e.g. http://logstash:8080/audit
-	private String elkApiKey;   // optional
+	private String elkEndpoint;
+	private String elkApiKey;
+	private boolean asyncEnabled = false;
+	private int asyncThreadCount = 2;
+	private int asyncQueueCapacity = 1000;
+	private boolean webEnabled = true;
+	private List<String> sensitiveKeys = new ArrayList<>(List.of(
+		"password",
+		"pwd",
+		"secret",
+		"token",
+		"authorization",
+		"credential",
+		"refreshToken",
+		"accessToken",
+		"email",
+		"phone"
+	));
 
-	/**
-	 * @return 감사 로그 기능 활성화 여부
-	 */
 	public boolean isEnabled() { return enabled; }
-
-	/**
-	 * @param enabled 감사 로그 기능 활성화 여부
-	 */
 	public void setEnabled(boolean enabled) { this.enabled = enabled; }
-
-	/**
-	 * @return 서비스 이름
-	 */
 	public String getServiceName() { return serviceName; }
-
-	/**
-	 * @param serviceName 서비스 이름
-	 */
 	public void setServiceName(String serviceName) { this.serviceName = serviceName; }
-
-	/**
-	 * @return 실행 환경명
-	 */
 	public String getEnv() { return env; }
-
-	/**
-	 * @param env 실행 환경명
-	 */
 	public void setEnv(String env) { this.env = env; }
-
-	/**
-	 * @return 파일 sink 경로
-	 */
 	public String getFilePath() { return filePath; }
-
-	/**
-	 * @param filePath 파일 sink 경로
-	 */
 	public void setFilePath(String filePath) { this.filePath = filePath; }
-
-	/**
-	 * @return ELK 전송 활성화 여부
-	 */
 	public boolean isElkEnabled() { return elkEnabled; }
-
-	/**
-	 * @param elkEnabled ELK 전송 활성화 여부
-	 */
 	public void setElkEnabled(boolean elkEnabled) { this.elkEnabled = elkEnabled; }
-
-	/**
-	 * @return ELK 엔드포인트 URL
-	 */
 	public String getElkEndpoint() { return elkEndpoint; }
-
-	/**
-	 * @param elkEndpoint ELK 엔드포인트 URL
-	 */
 	public void setElkEndpoint(String elkEndpoint) { this.elkEndpoint = elkEndpoint; }
-
-	/**
-	 * @return ELK API Key
-	 */
 	public String getElkApiKey() { return elkApiKey; }
-
-	/**
-	 * @param elkApiKey ELK API Key
-	 */
 	public void setElkApiKey(String elkApiKey) { this.elkApiKey = elkApiKey; }
+	public boolean isAsyncEnabled() { return asyncEnabled; }
+	public void setAsyncEnabled(boolean asyncEnabled) { this.asyncEnabled = asyncEnabled; }
+	public int getAsyncThreadCount() { return asyncThreadCount; }
+	public void setAsyncThreadCount(int asyncThreadCount) { this.asyncThreadCount = asyncThreadCount; }
+	public int getAsyncQueueCapacity() { return asyncQueueCapacity; }
+	public void setAsyncQueueCapacity(int asyncQueueCapacity) { this.asyncQueueCapacity = asyncQueueCapacity; }
+	public boolean isWebEnabled() { return webEnabled; }
+	public void setWebEnabled(boolean webEnabled) { this.webEnabled = webEnabled; }
+	public List<String> getSensitiveKeys() { return sensitiveKeys; }
+	public void setSensitiveKeys(List<String> sensitiveKeys) { this.sensitiveKeys = sensitiveKeys; }
 }

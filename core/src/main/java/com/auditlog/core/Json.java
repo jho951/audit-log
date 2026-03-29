@@ -2,69 +2,134 @@ package com.auditlog.core;
 
 import com.auditlog.api.AuditEvent;
 
+import java.lang.reflect.Array;
+import java.util.Iterator;
 import java.util.Map;
 
 final class Json {
 	private Json() {}
 
-	static String toJsonLine(AuditEvent e, String serviceName, String env) {
-		StringBuilder sb = new StringBuilder(256);
-		sb.append("{");
+	static String toJsonLine(AuditEvent event, String serviceName, String env) {
+		StringBuilder builder = new StringBuilder(512);
+		builder.append("{");
 
-		kv(sb, "@timestamp", e.getTimestamp() != null ? e.getTimestamp().toString() : null); sb.append(",");
-		kv(sb, "service", serviceName); sb.append(",");
-		kv(sb, "env", env); sb.append(",");
+		kv(builder, "eventId", event.getEventId());
+		comma(builder);
+		kv(builder, "@timestamp", event.getOccurredAt() != null ? event.getOccurredAt().toString() : null);
+		comma(builder);
+		kv(builder, "service", serviceName);
+		comma(builder);
+		kv(builder, "env", env);
+		comma(builder);
+		kv(builder, "eventType", event.getEventType() != null ? event.getEventType().name() : null);
+		comma(builder);
+		kv(builder, "action", event.getAction());
+		comma(builder);
+		kv(builder, "actorId", event.getActorId());
+		comma(builder);
+		kv(builder, "actorType", event.getActorType() != null ? event.getActorType().name() : null);
+		comma(builder);
+		kv(builder, "actorName", event.getActorName());
+		comma(builder);
+		kv(builder, "resourceType", event.getResourceType());
+		comma(builder);
+		kv(builder, "resourceId", event.getResourceId());
+		comma(builder);
+		kv(builder, "result", event.getResult() != null ? event.getResult().name() : null);
+		comma(builder);
+		kv(builder, "reason", event.getReason());
+		comma(builder);
+		kv(builder, "traceId", event.getTraceId());
+		comma(builder);
+		kv(builder, "requestId", event.getRequestId());
+		comma(builder);
+		kv(builder, "clientIp", event.getClientIp());
+		comma(builder);
+		kv(builder, "userAgent", event.getUserAgent());
 
-		kv(sb, "eventType", e.getEventType() != null ? e.getEventType().name() : null); sb.append(",");
-		kv(sb, "action", e.getAction()); sb.append(",");
-
-		kv(sb, "actorId", e.getActorId()); sb.append(",");
-		kv(sb, "actorIp", e.getActorIp()); sb.append(",");
-
-		kv(sb, "resourceType", e.getResourceType()); sb.append(",");
-		kv(sb, "resourceId", e.getResourceId()); sb.append(",");
-
-		kv(sb, "result", e.getResult()); sb.append(",");
-		kv(sb, "traceId", e.getTraceId());
-
-		Map<String, String> details = e.getDetails();
-		if (details != null && !details.isEmpty()) {
-			sb.append(",\"details\":").append(stringMapToJson(details));
+		if (!event.getDetails().isEmpty()) {
+			comma(builder);
+			builder.append("\"details\":").append(toJsonValue(event.getDetails()));
 		}
 
-		sb.append("}\n");
-		return sb.toString();
+		builder.append("}\n");
+		return builder.toString();
 	}
 
-	private static void kv(StringBuilder sb, String k, String v) {
-		sb.append("\"").append(escape(k)).append("\":");
-		if (v == null) sb.append("null");
-		else sb.append("\"").append(escape(v)).append("\"");
+	private static void comma(StringBuilder builder) {
+		builder.append(",");
 	}
 
-	private static String stringMapToJson(Map<String, String> m) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("{");
-		boolean first = true;
-		for (Map.Entry<String, String> entry : m.entrySet()) {
-			if (!first) sb.append(",");
-			first = false;
-
-			sb.append("\"").append(escape(entry.getKey())).append("\":");
-			String val = entry.getValue();
-			if (val == null) sb.append("null");
-			else sb.append("\"").append(escape(val)).append("\"");
+	private static void kv(StringBuilder builder, String key, String value) {
+		builder.append("\"").append(escape(key)).append("\":");
+		if (value == null) {
+			builder.append("null");
+		} else {
+			builder.append("\"").append(escape(value)).append("\"");
 		}
-		sb.append("}");
-		return sb.toString();
 	}
 
-	private static String escape(String s) {
-		if (s == null) return null;
-		return s
+	@SuppressWarnings("unchecked")
+	private static String toJsonValue(Object value) {
+		if (value == null) {
+			return "null";
+		}
+		if (value instanceof String stringValue) {
+			return "\"" + escape(stringValue) + "\"";
+		}
+		if (value instanceof Number || value instanceof Boolean) {
+			return value.toString();
+		}
+		if (value instanceof Map<?, ?> mapValue) {
+			StringBuilder builder = new StringBuilder("{");
+			Iterator<? extends Map.Entry<?, ?>> iterator = mapValue.entrySet().iterator();
+			while (iterator.hasNext()) {
+				Map.Entry<?, ?> entry = iterator.next();
+				builder.append("\"").append(escape(String.valueOf(entry.getKey()))).append("\":");
+				builder.append(toJsonValue(entry.getValue()));
+				if (iterator.hasNext()) {
+					builder.append(",");
+				}
+			}
+			builder.append("}");
+			return builder.toString();
+		}
+		if (value instanceof Iterable<?> iterable) {
+			StringBuilder builder = new StringBuilder("[");
+			Iterator<?> iterator = iterable.iterator();
+			while (iterator.hasNext()) {
+				builder.append(toJsonValue(iterator.next()));
+				if (iterator.hasNext()) {
+					builder.append(",");
+				}
+			}
+			builder.append("]");
+			return builder.toString();
+		}
+		if (value.getClass().isArray()) {
+			StringBuilder builder = new StringBuilder("[");
+			int length = Array.getLength(value);
+			for (int index = 0; index < length; index++) {
+				builder.append(toJsonValue(Array.get(value, index)));
+				if (index < length - 1) {
+					builder.append(",");
+				}
+			}
+			builder.append("]");
+			return builder.toString();
+		}
+		return "\"" + escape(String.valueOf(value)) + "\"";
+	}
+
+	private static String escape(String value) {
+		if (value == null) {
+			return null;
+		}
+		return value
 			.replace("\\", "\\\\")
 			.replace("\"", "\\\"")
 			.replace("\n", "\\n")
-			.replace("\r", "\\r");
+			.replace("\r", "\\r")
+			.replace("\t", "\\t");
 	}
 }

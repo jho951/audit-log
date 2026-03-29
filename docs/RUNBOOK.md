@@ -77,4 +77,4 @@ curl -i -X POST "https://elk.example.com/audit" \
 
 1. 원인 분류: 설정/권한/코드/네트워크/외부 시스템
 2. 재발 방지: 배포 전 설정 검증, 권한 점검 스크립트, 모니터링 알람
-3. 문서 반영: `troubleshooting.md`와 본 런북 업데이트
+3. 문서 반영: `TROUBLESHOOTING.md`와 본 런북 업데이트
