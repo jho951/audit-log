@@ -1,6 +1,6 @@
 allprojects {
     group = (findProperty("group") ?: "io.github.jho951").toString()
-    version = (findProperty("project_version") ?: "1.0.0").toString()
+    version = (findProperty("projectVersion") ?: findProperty("project_version") ?: "1.0.0").toString()
 
     repositories {
         mavenCentral()
@@ -31,7 +31,7 @@ subprojects {
 
     ext.junit = safeProp("junit", "5.10.0")
 
-    def jVersion = safeProp("java_version", safeProp("javaVersion", "17")).toString().trim() as Integer
+    def jVersion = safeProp("javaVersion", safeProp("java_version", "17")).toString().trim() as Integer
 
     java {
         toolchain {languageVersion = JavaLanguageVersion.of(jVersion)}
@@ -56,11 +56,12 @@ subprojects {
                 from components.java
 
                 groupId = project.group.toString()
-                artifactId = "audit-log-${project.name}"
+                def defaultArtifactId = project.name
+                artifactId = (project.findProperty("moduleArtifactId") ?: defaultArtifactId).toString()
                 version = project.version.toString()
 
                 pom {
-                    name = "audit-log-${project.name}"
+                    name = artifactId
                     description = "jho951 audit-log module: ${project.name}"
                     url = "https://github.com/jho951/audit-log"
 
