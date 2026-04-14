@@ -6,9 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * 단일 감사 이벤트를 표현하는 불변 객체입니다.
- */
+/** 단일 감사 이벤트를 표현하는 불변 객체입니다. */
 public final class AuditEvent {
 
 	private final String eventId;

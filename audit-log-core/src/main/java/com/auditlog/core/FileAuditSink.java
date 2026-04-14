@@ -1,14 +1,14 @@
 package com.auditlog.core;
 
-import com.auditlog.api.AuditEvent;
-import com.auditlog.api.AuditSink;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
+
+import com.auditlog.api.AuditEvent;
+import com.auditlog.api.AuditSink;
 
 /**
  * 감사 이벤트를 로컬 파일에 JSON Line 형식으로 append하는 구현체입니다.

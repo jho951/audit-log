@@ -1,10 +1,10 @@
 package com.auditlog.core;
 
-import com.auditlog.api.AuditEvent;
-
 import java.lang.reflect.Array;
 import java.util.Iterator;
 import java.util.Map;
+
+import com.auditlog.api.AuditEvent;
 
 final class Json {
 	private Json() {}

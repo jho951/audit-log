@@ -1,9 +1,4 @@
 rootProject.name = "audit-log"
 
 include("audit-log-api")
-
 include("audit-log-core")
-
-include("audit-log-spring-boot-autoconfigure")
-
-include("audit-log-spring-boot-starter")

@@ -2,9 +2,7 @@ package com.auditlog.api;
 
 import java.util.Map;
 
-/**
- * 감사 이벤트를 기록하는 진입점 인터페이스입니다.
- */
+/** 감사 이벤트를 기록하는 진입점 인터페이스입니다. */
 public interface AuditLogger {
 	void log(AuditEvent event);
 

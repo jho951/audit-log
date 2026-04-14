@@ -1,75 +1,35 @@
 # 아키텍처
 
-## 모듈 구조
+`audit-log`는 감사 이벤트를 표준 모델로 기록하는 프레임워크-중립 모듈입니다.
 
-```text
-audit-log/
-├─ audit-log-api/                       : :audit-log-api (artifact: audit-log-api)
-├─ audit-log-core/                      : :audit-log-core (artifact: audit-log-core)
-├─ audit-log-spring-boot-autoconfigure/ : :audit-log-spring-boot-autoconfigure (artifact: audit-log-spring-boot-autoconfigure)
-└─ audit-log-spring-boot-starter/       : :audit-log-spring-boot-starter (artifact: audit-log-spring-boot-starter)
-```
+## 모듈
 
-## 핵심 타입
+- `audit-log-api`: 핵심 모델과 핵심 인터페이스/계약
+- `audit-log-core`: 기능 구현 자체
 
-### `:audit-log-api` (`audit-log-api/`)
+## 제공 범위
 
-- 패키지: `com.auditlog.api`, `com.auditlog.spi`
-- `AuditEvent`: 표준 감사 이벤트
-- `AuditActorType`, `AuditEventType`, `AuditResult`: 표준 분류 값
-- `AuditContext`: 요청/추적 메타데이터
-- `AuditLogger`: 감사 로그 기록 진입점
-- `AuditSink`: 저장소 추상화
+- 핵심 모델: 감사 이벤트와 실행 컨텍스트를 표현합니다.
+- 핵심 인터페이스/계약: 로거, sink, 컨텍스트 해석, 마스킹 정책을 정의합니다.
+- 기능 구현 자체: 기본 로거, 파일/HTTP sink, 합성 sink, 비동기 sink, 마스킹 유틸리티를 제공합니다.
 
-### `spi` (패키지는 `:audit-log-api` 모듈 내부)
+## 순수 1계층 기준
 
-- `AuditContextResolver`: 실행 컨텍스트 주입
-- `AuditMaskingPolicy`: 민감정보 마스킹 정책
+- 감사 로그 도메인 기능 자체를 제공합니다.
+- 특정 서비스를 알지 않습니다.
+- 특정 프레임워크 최종 진입점을 가지지 않습니다.
+- 재사용 가능한 공개 OSS로 동작합니다.
+- 서비스 비즈니스 정책을 내장하지 않습니다.
 
-### `:audit-log-core` (`audit-log-core/`)
-
-- 패키지: `com.auditlog.core`
-- `DefaultAuditLogger`: 컨텍스트 주입 + 마스킹 + sink 위임
-- `FileAuditSink`: JSON Line 파일 기록
-- `ElkHttpAuditSink`: HTTP 비동기 전송
-- `CompositeAuditSink`: fan-out
-- `AsyncAuditSink`: executor 기반 비동기 래퍼
-
-### `:audit-log-spring-boot-autoconfigure` (`audit-log-spring-boot-autoconfigure/`, artifactId: `audit-log-spring-boot-autoconfigure`)
-
-- 패키지: `com.auditlog.autoconfigure`
-- `AuditLogAutoConfiguration`: starter 자동 구성
-- `AuditLogProperties`: 속성 바인딩
-- `WebAuditContextFilter`: 요청 메타데이터 수집
-- `WebAuditContextResolver`: 요청 컨텍스트를 이벤트에 반영
-
-### `:audit-log-spring-boot-starter` (`audit-log-spring-boot-starter/`, artifactId: `audit-log-spring-boot-starter`)
-
-- 역할: Spring Boot 서비스의 기본 진입점 의존성
-- 구성: `:audit-log-spring-boot-autoconfigure` + `spring-boot-starter`를 묶어서 제공
-
-## 모듈 의존 관계
-
-- `:audit-log-spring-boot-starter` -> `:audit-log-spring-boot-autoconfigure`
-- `:audit-log-spring-boot-autoconfigure` -> `:audit-log-core`
-- `:audit-log-core` -> `:audit-log-api`
-
-## 데이터 흐름
+## 흐름
 
 1. 애플리케이션이 `AuditLogger`를 호출합니다.
-2. `DefaultAuditLogger`가 등록된 `AuditContextResolver`들을 순서대로 조회해 요청 메타데이터를 채웁니다.
-3. `AuditMaskingPolicy`가 `details`의 민감정보를 마스킹합니다.
-4. 최종 이벤트를 `AuditSink`가 파일 또는 HTTP 저장소로 기록합니다.
+2. 선택한 `AuditContextResolver`가 요청 정보를 채웁니다.
+3. `AuditMaskingPolicy`가 민감정보를 마스킹합니다.
+4. `AuditSink`가 파일 또는 외부 시스템으로 기록합니다.
 
-## 설계 특징
+## 원칙
 
-- 표준화: 서비스별 제각각인 감사 필드를 공통 모델로 통합
-- 확장성: sink, context resolver, masking policy 교체 가능
-- 웹 친화성: HTTP 요청에서 traceId/requestId/clientIp/userAgent 자동 수집
-- 운영성: fail-open 유지, 비동기 옵션 제공
-
-## MSA 적용 방식
-
-- 권장: 각 서비스가 이벤트를 생성하고 중앙 수집(ELK/Kafka/OTel backend 등)으로 전달
-- 비권장: 모니터링 서버 한 곳에서만 감사 이벤트를 대신 생성
-- 이유: 감사 이벤트의 핵심 맥락(행위자, 비즈니스 액션, 실패 사유)은 호출 서비스 내부에서 가장 정확하게 채워짐
+- 감사 이벤트는 공통 모델로 기록합니다.
+- 저장 방식은 `AuditSink`로 교체할 수 있습니다.
+- 요청 메타데이터는 `AuditContextResolver` 계약으로 주입합니다.

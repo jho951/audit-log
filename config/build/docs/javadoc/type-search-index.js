@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.auditlog.config","l":"AuditLogAutoConfiguration"},{"p":"com.auditlog.config","l":"AuditLogProperties"}];updateSearchResults();

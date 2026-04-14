@@ -1,31 +1,47 @@
-# Gradle
-.gradle/
-.gradle-home/
-**/build/
-gradle/wrapper/
-
-# IntelliJ IDEA
-.idea/
-*.iml
-out/
-.vscode/
-
-# OS / Editor
+# System
 .DS_Store
 Thumbs.db
+ehthumbs.db
 *.swp
-*.swo
 
-# Logs
+# Java
+*.class
 *.log
 
-# Environment / secrets
-.env
-.env.*
-*.pem
+# Gradle
+/.gradle/
+/.gradle-local/
+/build/
+**/build/
+*.kotlin_module
+*.lck
+
+# Secrets
+.env*
+.envrc
+docker/.generated
 *.key
-*.jks
+*.pem
 *.p12
-*.keystore
-secrets.properties
-local.properties
+
+# IntelliJ
+/.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Eclipse / editor leftovers
+*.tmp
+*.orig
+.project
+.settings/
+
+# Data
+data/
+
+# Logs / runtime
+*.pid
+*.seed
+*.out
+*.err

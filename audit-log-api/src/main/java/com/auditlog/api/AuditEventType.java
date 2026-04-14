@@ -1,8 +1,6 @@
 package com.auditlog.api;
 
-/**
- * 감사 이벤트 유형.
- */
+/** 감사 이벤트 유형. */
 public enum AuditEventType {
 	/** 로그인 이벤트 */
 	LOGIN,

@@ -1,13 +1,14 @@
 package com.auditlog.core;
 
+import java.util.List;
+import java.util.Objects;
+
 import com.auditlog.api.AuditContext;
 import com.auditlog.api.AuditEvent;
 import com.auditlog.api.AuditLogger;
 import com.auditlog.api.AuditSink;
 import com.auditlog.spi.AuditContextResolver;
 import com.auditlog.spi.AuditMaskingPolicy;
-
-import java.util.List;
 
 /**
  * {@link AuditLogger}의 기본 구현체입니다.
@@ -43,21 +44,11 @@ public final class DefaultAuditLogger implements AuditLogger {
 
 		for (AuditContextResolver resolver : contextResolvers) {
 			AuditContext context = resolver.resolve(event);
-			if (context == null) {
-				continue;
-			}
-			if (isBlank(traceId) && !isBlank(context.traceId())) {
-				traceId = context.traceId();
-			}
-			if (isBlank(requestId) && !isBlank(context.requestId())) {
-				requestId = context.requestId();
-			}
-			if (isBlank(clientIp) && !isBlank(context.clientIp())) {
-				clientIp = context.clientIp();
-			}
-			if (isBlank(userAgent) && !isBlank(context.userAgent())) {
-				userAgent = context.userAgent();
-			}
+			if (context == null) continue;
+			if (isBlank(traceId) && !isBlank(context.traceId())) traceId = context.traceId();
+			if (isBlank(requestId) && !isBlank(context.requestId())) requestId = context.requestId();
+			if (isBlank(clientIp) && !isBlank(context.clientIp())) clientIp = context.clientIp();
+			if (isBlank(userAgent) && !isBlank(context.userAgent())) userAgent = context.userAgent();
 		}
 
 		if (same(event.getTraceId(), traceId)
@@ -76,9 +67,7 @@ public final class DefaultAuditLogger implements AuditLogger {
 	}
 
 	private AuditEvent applyMasking(AuditEvent event) {
-		if (maskingPolicy == null) {
-			return event;
-		}
+		if (maskingPolicy == null) return event;
 		return event.toBuilder()
 			.details(maskingPolicy.mask(event.getDetails()))
 			.build();
@@ -89,6 +78,6 @@ public final class DefaultAuditLogger implements AuditLogger {
 	}
 
 	private static boolean same(String left, String right) {
-		return left == null ? right == null : left.equals(right);
+		return Objects.equals(left, right);
 	}
 }

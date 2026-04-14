@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.auditlog.api","l":"AuditEvent"},{"p":"com.auditlog.api","l":"AuditEventType"},{"p":"com.auditlog.api","l":"AuditLogger"},{"p":"com.auditlog.api","l":"AuditSink"},{"p":"com.auditlog.api","l":"AuditEvent.Builder"}];updateSearchResults();
