@@ -1,6 +1,6 @@
-# 구성
+# Extension Guide
 
-`audit-log`는 Java 코드에서 직접 조립하는 프레임워크-중립 모듈입니다.
+`audit-log`는 Java 코드에서 직접 조립하고 공개 계약으로 확장하는 프레임워크 독립 모듈입니다.
 
 ## 기본 구성 요소
 
@@ -31,3 +31,9 @@ AuditLogger logger = new DefaultAuditLogger(sink, List.of(new CustomAuditContext
 ## 민감정보 마스킹
 
 `details`의 `password`, `token`, `secret` 같은 키는 기본 정책에서 마스킹할 수 있습니다.
+
+## 금지
+
+- 내부 구현 타입 직접 의존
+- platform 조립 책임 추가
+- 서비스 비즈니스 로직 추가
