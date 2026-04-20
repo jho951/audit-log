@@ -1,0 +1,38 @@
+name: contract-check
+
+on:
+  pull_request:
+
+jobs:
+  oss-contract-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate contract lock
+        env:
+          SERVICE_NAME: audit-log
+        run: |
+          test -f contract.lock.yml
+          grep -q "repo: https://github.com/jho951/oss-contract.git" contract.lock.yml
+          grep -q "name: ${SERVICE_NAME}" contract.lock.yml
+          grep -q "ref:" contract.lock.yml
+          grep -q "commit:" contract.lock.yml
+          grep -q "standards:" contract.lock.yml
+          grep -q "registry/layer1/standards/audit-log.md" contract.lock.yml
+
+      - name: Detect oss-contract impact
+        env:
+          CONTRACT_IMPACT_REGEX: '(^audit-log-api/src/main/java/)|(^audit-log-core/src/main/java/.*(Audit|Sink|Mask|Context|Event|Result).*\.java$)|(^build\.gradle$)|(^settings\.gradle$)|(^gradle\.properties$)|(^docs/(readme|architecture|modules|extension-guide|test-and-ci|troubleshooting)\.md$)|(^README\.md$)'
+        run: |
+          git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" > changed-files.txt
+          if grep -Eq "${CONTRACT_IMPACT_REGEX}" changed-files.txt; then
+            if ! grep -qx "contract.lock.yml" changed-files.txt; then
+              echo "OSS-contract-impacting files changed. Update contract.lock.yml or split contract changes first."
+              cat changed-files.txt
+              exit 1
+            fi
+          fi
