@@ -1,8 +1,6 @@
 # Extension Guide
 
-`audit-log`는 Java 코드에서 직접 조립하고 공개 계약으로 확장하는 프레임워크 독립 모듈입니다.
-
-## 기본 구성 요소
+## 구성 요소
 
 - `AuditLogger`: 감사 이벤트 기록 진입점
 - `AuditSink`: 실제 저장소로 쓰는 대상
