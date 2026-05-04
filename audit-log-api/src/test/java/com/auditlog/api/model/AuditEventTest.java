@@ -1,10 +1,14 @@
-package com.auditlog.api;
+package com.auditlog.api.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Map;
+
+import com.auditlog.api.exception.AuditException;
+import com.auditlog.api.exception.AuditFailureReason;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,5 +46,14 @@ class AuditEventTest {
 		assertEquals("FORBIDDEN", copied.getReason());
 		assertEquals("req-1", copied.getRequestId());
 		assertFalse(copied.getDetails().isEmpty());
+	}
+
+	@Test
+	void builderShouldRejectBlankAction() {
+		AuditException exception = assertThrows(AuditException.class, () ->
+			AuditEvent.builder(AuditEventType.CREATE, "  ").build()
+		);
+
+		assertEquals(AuditFailureReason.INVALID_EVENT, exception.getReason());
 	}
 }

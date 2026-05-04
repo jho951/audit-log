@@ -1,7 +1,2 @@
-/**
- * Public audit log contracts.
- * <p>
- * This package contains the value objects and entry points used by applications
- * and by the framework-agnostic core implementation.
- */
+/** 공개용 감사 로그 규약 */
 package com.auditlog.api;

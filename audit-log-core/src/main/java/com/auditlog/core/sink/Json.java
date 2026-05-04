@@ -1,10 +1,10 @@
-package com.auditlog.core;
+package com.auditlog.core.sink;
 
 import java.lang.reflect.Array;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.auditlog.api.AuditEvent;
+import com.auditlog.api.model.AuditEvent;
 
 /** AuditEvent(감사 로그 이벤트) 데이터를 JSON 형식의 문자열로 변환(직렬화) */
 final class Json {
@@ -86,22 +86,16 @@ final class Json {
 		comma(builder);
 		kv(builder, "service", serviceName);
 		comma(builder);
-		// 운영 환경
 		kv(builder, "env", env);
 		comma(builder);
-		// 카테고리
 		kv(builder, "eventType", event.getEventType() != null ? event.getEventType().name() : null);
 		comma(builder);
-		// 동작 (로그인, 삭제 등)
 		kv(builder, "action", event.getAction());
 		comma(builder);
-		// 주체
 		kv(builder, "actorId", event.getActorId());
 		comma(builder);
-		// 권한
 		kv(builder, "actorType", event.getActorType() != null ? event.getActorType().name() : null);
 		comma(builder);
-		// 이름
 		kv(builder, "actorName", event.getActorName());
 		comma(builder);
 		kv(builder, "resourceType", event.getResourceType());
@@ -112,12 +106,10 @@ final class Json {
 		comma(builder);
 		kv(builder, "reason", event.getReason());
 		comma(builder);
-		// 추적 ID
 		kv(builder, "traceId", event.getTraceId());
 		comma(builder);
 		kv(builder, "requestId", event.getRequestId());
 		comma(builder);
-		// 접속 IP
 		kv(builder, "clientIp", event.getClientIp());
 		comma(builder);
 		kv(builder, "userAgent", event.getUserAgent());

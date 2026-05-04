@@ -1,14 +1,15 @@
-package com.auditlog.core;
+package com.auditlog.core.sink;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.auditlog.api.AuditEvent;
 import com.auditlog.api.AuditSink;
+import com.auditlog.api.exception.AuditException;
+import com.auditlog.api.exception.AuditFailureReason;
+import com.auditlog.api.model.AuditEvent;
 
 /**
  * 감사 이벤트를 로컬 파일에 JSON Line 형식으로 append하는 구현체입니다.
@@ -20,10 +21,17 @@ public final class FileAuditSink implements AuditSink {
 	private final ReentrantLock lock = new ReentrantLock();
 
 	public FileAuditSink(Path filePath, String serviceName, String env) {
-		this.filePath = Objects.requireNonNull(filePath);
+		this.filePath = requirePath(filePath);
 		this.serviceName = serviceName == null ? "unknown-service" : serviceName;
 		this.env = env == null ? "local" : env;
 		ensureParent();
+	}
+
+	private static Path requirePath(Path filePath) {
+		if (filePath == null) {
+			throw new AuditException(AuditFailureReason.INVALID_CONFIGURATION, "Audit file path must not be null.");
+		}
+		return filePath;
 	}
 
 	@Override

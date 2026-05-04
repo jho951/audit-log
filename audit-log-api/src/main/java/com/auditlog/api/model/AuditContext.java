@@ -1,4 +1,4 @@
-package com.auditlog.api;
+package com.auditlog.api.model;
 
 import java.util.Objects;
 

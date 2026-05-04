@@ -2,12 +2,15 @@ package com.auditlog.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.auditlog.api.AuditContext;
-import com.auditlog.api.AuditEvent;
-import com.auditlog.api.AuditEventType;
-import com.auditlog.api.AuditResult;
 import com.auditlog.api.AuditSink;
+import com.auditlog.api.exception.AuditException;
+import com.auditlog.api.exception.AuditFailureReason;
+import com.auditlog.api.model.AuditContext;
+import com.auditlog.api.model.AuditEvent;
+import com.auditlog.api.model.AuditEventType;
+import com.auditlog.api.model.AuditResult;
 import com.auditlog.spi.AuditContextResolver;
 import com.auditlog.spi.AuditMaskingPolicy;
 
@@ -49,6 +52,25 @@ class DefaultAuditLoggerTest {
 
 		assertEquals(AuditResult.FAILURE, sink.event.getResult());
 		assertEquals("ACCESS_DENIED", sink.event.getReason());
+	}
+
+	@Test
+	void loggerShouldRejectNullSink() {
+		AuditException exception = assertThrows(AuditException.class, () ->
+			new DefaultAuditLogger(null, List.of(), null)
+		);
+
+		assertEquals(AuditFailureReason.INVALID_CONFIGURATION, exception.getReason());
+	}
+
+	@Test
+	void loggerShouldRejectNullEvent() {
+		CapturingAuditSink sink = new CapturingAuditSink();
+		DefaultAuditLogger logger = new DefaultAuditLogger(sink, List.of(), null);
+
+		AuditException exception = assertThrows(AuditException.class, () -> logger.log(null));
+
+		assertEquals(AuditFailureReason.INVALID_EVENT, exception.getReason());
 	}
 
 	private static final class CapturingAuditSink implements AuditSink {

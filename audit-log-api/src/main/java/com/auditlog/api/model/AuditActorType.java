@@ -1,4 +1,4 @@
-package com.auditlog.api;
+package com.auditlog.api.model;
 
 /** 감사 이벤트의 주체 유형 */
 public enum AuditActorType {

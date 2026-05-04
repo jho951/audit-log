@@ -2,14 +2,20 @@ package com.auditlog.api;
 
 import java.util.Map;
 
-/** 감사 이벤트를 기록하는 진입점 인터페이스입니다. */
-public interface AuditLogger {
-	void log(AuditEvent event);
+import com.auditlog.api.model.AuditActorType;
+import com.auditlog.api.model.AuditEvent;
+import com.auditlog.api.model.AuditEventType;
+import com.auditlog.api.model.AuditResult;
 
+/** 감사 이벤트를 기록하는 진입점 인터페이스입니다. */
+public  interface AuditLogger {
+	/** 로그 기록 (The Logger) */
+	void log(AuditEvent event);
+	/** 성공 로그 */
 	default void logSuccess(AuditEvent.Builder builder) {
 		log(builder.success().build());
 	}
-
+	/** 성공 로그 */
 	default void logFailure(AuditEvent.Builder builder, String reason) {
 		log(builder.failure(reason).build());
 	}

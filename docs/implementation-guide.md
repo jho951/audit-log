@@ -3,13 +3,13 @@
 ## 기본 파일 sink 조립
 
 ```java
-import com.auditlog.api.AuditActorType;
-import com.auditlog.api.AuditEvent;
-import com.auditlog.api.AuditEventType;
+import com.auditlog.api.model.AuditActorType;
+import com.auditlog.api.model.AuditEvent;
+import com.auditlog.api.model.AuditEventType;
 import com.auditlog.api.AuditLogger;
 import com.auditlog.api.AuditSink;
 import com.auditlog.core.DefaultAuditLogger;
-import com.auditlog.core.FileAuditSink;
+import com.auditlog.core.sink.FileAuditSink;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -39,13 +39,13 @@ auditLogger.logSuccess(
 컨텍스트와 마스킹을 함께 조립할 때:
 
 ```java
-import com.auditlog.api.AuditContext;
+import com.auditlog.api.model.AuditContext;
 import com.auditlog.api.AuditLogger;
 import com.auditlog.core.AuditMasker;
-import com.auditlog.core.CompositeAuditSink;
+import com.auditlog.core.sink.CompositeAuditSink;
 import com.auditlog.core.DefaultAuditLogger;
-import com.auditlog.core.FileAuditSink;
-import com.auditlog.core.HttpAuditSink;
+import com.auditlog.core.sink.FileAuditSink;
+import com.auditlog.core.sink.HttpAuditSink;
 import com.auditlog.spi.AuditContextResolver;
 import com.auditlog.spi.AuditMaskingPolicy;
 

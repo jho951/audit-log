@@ -3,10 +3,12 @@ package com.auditlog.core;
 import java.util.List;
 import java.util.Objects;
 
-import com.auditlog.api.AuditContext;
-import com.auditlog.api.AuditEvent;
 import com.auditlog.api.AuditLogger;
 import com.auditlog.api.AuditSink;
+import com.auditlog.api.exception.AuditException;
+import com.auditlog.api.exception.AuditFailureReason;
+import com.auditlog.api.model.AuditContext;
+import com.auditlog.api.model.AuditEvent;
 import com.auditlog.spi.AuditContextResolver;
 import com.auditlog.spi.AuditMaskingPolicy;
 
@@ -24,16 +26,34 @@ public final class DefaultAuditLogger implements AuditLogger {
 		List<AuditContextResolver> contextResolvers,
 		AuditMaskingPolicy maskingPolicy
 	) {
-		this.sink = sink;
-		this.contextResolvers = contextResolvers == null ? List.of() : List.copyOf(contextResolvers);
+		this.sink = requireConfiguration(sink, "Audit sink must not be null.");
+		this.contextResolvers = copyResolvers(contextResolvers);
 		this.maskingPolicy = maskingPolicy;
 	}
 
 	@Override
 	public void log(AuditEvent event) {
+		if (event == null) {
+			throw new AuditException(AuditFailureReason.INVALID_EVENT, "Audit event must not be null.");
+		}
 		AuditEvent enriched = applyContext(event);
 		AuditEvent masked = applyMasking(enriched);
 		sink.write(masked);
+	}
+
+	private static List<AuditContextResolver> copyResolvers(List<AuditContextResolver> contextResolvers) {
+		if (contextResolvers == null) return List.of();
+		if (contextResolvers.stream().anyMatch(Objects::isNull)) {
+			throw new AuditException(AuditFailureReason.INVALID_CONFIGURATION, "Audit context resolvers must not contain null.");
+		}
+		return List.copyOf(contextResolvers);
+	}
+
+	private static <T> T requireConfiguration(T value, String message) {
+		if (value == null) {
+			throw new AuditException(AuditFailureReason.INVALID_CONFIGURATION, message);
+		}
+		return value;
 	}
 
 	private AuditEvent applyContext(AuditEvent event) {
@@ -45,10 +65,10 @@ public final class DefaultAuditLogger implements AuditLogger {
 		for (AuditContextResolver resolver : contextResolvers) {
 			AuditContext context = resolver.resolve(event);
 			if (context == null) continue;
-			if (isBlank(traceId) && !isBlank(context.traceId())) traceId = context.traceId();
-			if (isBlank(requestId) && !isBlank(context.requestId())) requestId = context.requestId();
-			if (isBlank(clientIp) && !isBlank(context.clientIp())) clientIp = context.clientIp();
-			if (isBlank(userAgent) && !isBlank(context.userAgent())) userAgent = context.userAgent();
+			if (isBlank(traceId) && !isBlank(context.getTraceId())) traceId = context.getTraceId();
+			if (isBlank(requestId) && !isBlank(context.getRequestId())) requestId = context.getRequestId();
+			if (isBlank(clientIp) && !isBlank(context.getClientIp())) clientIp = context.getClientIp();
+			if (isBlank(userAgent) && !isBlank(context.getUserAgent())) userAgent = context.getUserAgent();
 		}
 
 		if (same(event.getTraceId(), traceId)
